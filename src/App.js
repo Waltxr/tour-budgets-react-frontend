@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Container from './components/Container'
+import { Route } from 'react-router-dom'
 import './App.css';
-import LoginForm from './components/LoginForm'
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div>
-        <LoginForm />
+      <div className="App">
+        <Route exact path ='/' component= { Container } />
       </div>
     );
   }
 }
 
 export default App;
+
