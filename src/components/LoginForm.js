@@ -8,6 +8,10 @@ import { LabelInputField } from 'react-semantic-redux-form';
 
 class LoginForm extends React.Component {
 
+  handleSubmit = event => {    
+    this.props.loginUser(event.target.email.value, event.target.password.value)
+  }
+
   render() {
     return (
       <div className='login-form'>
@@ -27,7 +31,7 @@ class LoginForm extends React.Component {
             <Header as='h2' color='teal' textAlign='center'>
               {' '}Log-in to your account
             </Header>
-            <Form size='large' onSubmit={this.props.handleSubmit}>
+            <Form size='large' onSubmit={this.handleSubmit}>
               <Segment stacked>
                 <Field
                   component={LabelInputField}
