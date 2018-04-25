@@ -3,17 +3,14 @@ import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import * as actions from '../actions/index';
 import { connect }  from 'react-redux';
 import { withRouter } from 'react-router';
+import { Field, reduxForm } from 'redux-form';
+import { LabelInputField } from 'react-semantic-redux-form';
 
 class LoginForm extends React.Component {
 
   render() {
     return (
       <div className='login-form'>
-        {/*
-          Heads up! The styles below are necessary for the correct render of this example.
-          You can do same with CSS, the main idea is that all the elements up to the `Grid`
-          below must have a height of 100%.
-        */}
         <style>{`
           body > div,
           body > div > div,
@@ -30,23 +27,32 @@ class LoginForm extends React.Component {
             <Header as='h2' color='teal' textAlign='center'>
               {' '}Log-in to your account
             </Header>
-            <Form size='large'>
+            <Form size='large' onSubmit={this.props.handleSubmit}>
               <Segment stacked>
-                <Form.Input
+                <Field
+                  component={LabelInputField}
+                  name='email'
                   fluid
                   icon='user'
                   iconPosition='left'
                   placeholder='E-mail address'
                 />
-                <Form.Input
+                <Field
+                  component={LabelInputField}
+                  name='password'
                   fluid
                   icon='lock'
                   iconPosition='left'
                   placeholder='Password'
                   type='password'
                 />
-
-                <Button color='teal' fluid size='large'>Login</Button>
+                <Form.Field
+                control={Button}
+                primary
+                className='submit-btn'
+                type='submit'>
+                Login
+              </Form.Field>
               </Segment>
             </Form>
             <Message>
@@ -57,10 +63,11 @@ class LoginForm extends React.Component {
       </div>
     )
   }
+
 }
 
-const mapStateToProps = state => {
-  return {currentUser: state.currentUser}
-}
+LoginForm = withRouter(connect(null, actions)(LoginForm))
 
-export default withRouter(connect(mapStateToProps, actions)(LoginForm))
+export default reduxForm({
+  form: 'loginForm',	// a unique identifier for this form
+})(LoginForm)

@@ -1,6 +1,6 @@
 export function currentuserReducer(state = [], action) {
   switch(action.type) {
-    case 'GET_CURRENT_USER' :
+    case 'LOGIN_USER' :
       return [...action.payload]
     default:
       return state
